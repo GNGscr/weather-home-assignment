@@ -1,0 +1,179 @@
+/* ==========================
+   Header & Controls
+========================== */
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 1.5rem 0;
+  top: 0;
+  left: 1rem;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+}
+  
+@media (prefers-color-scheme: light) {
+  .header {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  .seperator {
+    background-color: #213547;
+  }
+}
+  
+@media (min-width: 768px) {
+  .header {
+    padding-left: 4rem;
+  }
+}
+
+/* ==========================
+   Inputs & Selects
+========================== */
+
+input:not(
+  [type="image" i],
+  [type="range" i],
+  [type="checkbox" i],
+  [type="radio" i]
+) {
+  width: 24rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  text-indent: 10px;
+}
+
+select:not([multiple]),
+input:not(
+  [type="image" i],
+  [type="range" i],
+  [type="checkbox" i],
+  [type="radio" i]
+)::placeholder {
+  text-indent: 10px;
+}
+
+select:not([multiple]) {
+  width: 24rem;
+  height: 1.5rem;
+  border-radius: 6px;
+}
+
+input,
+select {
+  border: 1px solid light-dark(
+    rgb(118, 118, 118), rgb(133, 133, 133)
+  );
+}
+input:focus,
+select:focus {
+  outline: none;
+  border: 1px solid #aaa;
+}
+  
+@media (min-width: 768px) {
+  input:not(
+    [type="image" i],
+    [type="range" i],
+    [type="checkbox" i],
+    [type="radio" i]
+  ) {
+    width: 23rem;
+  }
+  select:not([multiple]) {
+    width: 23rem;
+  }
+}
+
+/* Containers for search and filters */
+
+.search-continent {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .search-continent {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+
+.sort-units {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .sort-units {
+    display: flex;
+    align-items: center;
+    margin-top: 0rem;
+    margin-left: 2rem;
+    gap: 2rem;
+  }
+}
+
+  /* ==========================
+   Actions & Interactions
+========================== */
+
+.action-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  position: relative;
+  /* display: inline-block; */
+}
+
+.action-wrapper input {
+  padding-right: 1rem;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #aaa;
+}
+
+.clear-btn:hover {
+  color: #333;
+}
+
+.action-children {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-child {
+  cursor: pointer;
+  text-underline-offset: 2px;
+}
+  
+/* ==========================
+   Separators
+========================== */
+
+.seperator {
+  background-color: #ffffff;
+  height: 1rem;
+  width: 1px;
+  margin-top: 0.25rem;
+}

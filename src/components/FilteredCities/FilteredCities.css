@@ -1,0 +1,85 @@
+/* ==========================
+   Typography & Text Elements
+========================== */
+
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.name, .country {
+  line-height: 1.25rem;
+}
+
+.name {
+  font-size: 1.25rem;
+}
+
+.country {
+  font-size: 1rem;
+}
+
+.title {
+  font-size: 0.9rem;
+}
+
+/* ==========================
+   City Grid & Cards
+========================== */
+
+.city-grid {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 16rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  .city-grid {
+    grid-template-columns: repeat(6, 1fr);
+    margin-top: 7.5rem;
+    gap: 1.25rem;
+  }
+}
+
+.city-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  text-align: left;
+  border-radius: 8px;
+  color: white;
+  overflow: hidden;
+  padding: 1rem;
+  font-size: 0.6rem;
+  min-height: 150px;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .city-card {
+    height: 8.5rem;
+  }
+}
+
+/* Overlay to make the background images darker */
+.city-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  z-index: 0;
+}
+
+.city-card-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1;
+  padding: 0.5rem 0;
+}
