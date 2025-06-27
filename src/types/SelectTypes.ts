@@ -1,5 +1,7 @@
+export type Continent = string;
+
 export type SelectTypes = {
-    continent: string;
+    continent: Continent;
     handleChange: (name: string, value: string) => void;
     allContinents: string[];
 }

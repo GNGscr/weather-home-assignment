@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import citiesDataRaw from '../../data/data.json';
@@ -8,17 +8,21 @@ import type { ForecastResponse } from '../../types/Forecast';
 import type { City } from '../../types/City';
 import { motion } from 'framer-motion';
 import './CityDetailsPage.css';
+import type { UnitOption } from '../../types/UnitOptions';
 
 const DEFAULT_UNITS = 'metric';
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 const CityDetailsPage = () => {
+
   const { cityName } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const urlUnits = (searchParams.get('units') as UnitOption) ?? DEFAULT_UNITS;
 
   const [weatherData, setWeatherData] = useState<ForecastResponse | null>(null);
-  const [units, setUnits] = useState<'metric' | 'imperial'>(DEFAULT_UNITS);
+  const [units, setUnits] = useState<'metric' | 'imperial'>(urlUnits);
 
   const city = useMemo(() => {
     const allCities = (citiesDataRaw as { cities: City[] }).cities;
