@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import type { ForecastResponse, DailyForecast } from '../types/Forecast';
 import type { UnitOption } from '../types/UnitOptions';
 import { motion } from 'framer-motion';
@@ -5,10 +6,38 @@ import { motion } from 'framer-motion';
 type Forecasts = {
     weatherData: ForecastResponse;
     units: UnitOption;
-    dailyForecasts: DailyForecast[];
+    // dailyForecasts: DailyForecast[];
 };
 
-const DailyForecasts = ({ weatherData, units, dailyForecasts }: Forecasts) => {
+const DailyForecasts = ({ weatherData, units, }: Forecasts) => {
+  const dailyForecasts = useMemo(() => {
+    if (!weatherData || !weatherData.list) {
+      return [];
+    }
+  
+    const forecastByDate: Record<string, typeof weatherData.list> = {};
+  
+    for (const item of weatherData.list) {
+      const date = item.dt_txt.split(' ')[0];
+      if (!forecastByDate[date]) {
+        forecastByDate[date] = [];
+      }
+      forecastByDate[date].push(item);
+    }
+  
+    return Object.entries(forecastByDate)
+      .slice(0, 5)
+      .map(([date, items]) => {
+        const noonItem =
+          items.find((i) => i.dt_txt.includes('12:00:00')) ||
+          items[Math.floor(items.length / 2)];
+        return {
+          date,
+          temp: Math.round(noonItem.main.temp),
+          description: noonItem.weather[0].main,
+        };
+      });
+  }, [weatherData]);
   return (
     <div className='daily-forecasts'>
         <div className='current-forecast'>

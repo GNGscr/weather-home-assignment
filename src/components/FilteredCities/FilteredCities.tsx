@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import type { City } from '../../types/City';
 import { AnimatePresence, motion } from 'framer-motion';
 import './FilteredCities.css';
+import NotFoundMessage from '../NotFound';
 
 type CitiesProps = {
     filteredCities: City[];
@@ -34,12 +35,7 @@ const FilteredCities = ({ filteredCities, searchParams }: CitiesProps) => {
   if (filteredCities.length === 0) {
     return (
       <div className="centered-content">
-        <motion.p
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 2, opacity: 1 }}
-            transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}>
-            No result found 😕
-        </motion.p>
+        <NotFoundMessage message='No result found' />
       </div>
     );
   }

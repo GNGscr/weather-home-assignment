@@ -1,14 +1,16 @@
-import { useParams, useSearchParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import citiesDataRaw from '../../data/data.json';
 import DailyForecasts from '../../components/DailyForecasts';
 import Units from '../../components/Units';
 import type { ForecastResponse } from '../../types/Forecast';
+import type { UnitOption } from '../../types/UnitOptions';
 import type { City } from '../../types/City';
 import { motion } from 'framer-motion';
+import BackButton from '../../components/BackButton';
+import NotFoundMessage from '../../components/NotFound';
 import './CityDetailsPage.css';
-import type { UnitOption } from '../../types/UnitOptions';
 
 const DEFAULT_UNITS = 'metric';
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
@@ -16,9 +18,9 @@ const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const CityDetailsPage = () => {
 
   const { cityName } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
+
   const [searchParams] = useSearchParams();
+
   const urlUnits = (searchParams.get('units') as UnitOption) ?? DEFAULT_UNITS;
 
   const [weatherData, setWeatherData] = useState<ForecastResponse | null>(null);
@@ -48,36 +50,6 @@ const CityDetailsPage = () => {
     fetchWeather();
   }, [city, units]);
 
-
-  const dailyForecasts = useMemo(() => {
-    if (!weatherData || !weatherData.list) {
-      return [];
-    }
-  
-    const forecastByDate: Record<string, typeof weatherData.list> = {};
-  
-    for (const item of weatherData.list) {
-      const date = item.dt_txt.split(' ')[0];
-      if (!forecastByDate[date]) {
-        forecastByDate[date] = [];
-      }
-      forecastByDate[date].push(item);
-    }
-  
-    return Object.entries(forecastByDate)
-      .slice(0, 5)
-      .map(([date, items]) => {
-        const noonItem =
-          items.find((i) => i.dt_txt.includes('12:00:00')) ||
-          items[Math.floor(items.length / 2)];
-        return {
-          date,
-          temp: Math.round(noonItem.main.temp),
-          description: noonItem.weather[0].main,
-        };
-      });
-  }, [weatherData]);
-
   const handleUnitsChange = (key: string, value: string) => {
     if (key === 'units' && (value === 'metric' || value === 'imperial')) {
       setUnits(value);
@@ -87,20 +59,12 @@ const CityDetailsPage = () => {
   if (!city) {
     return (
       <div className="centered-content">
-          <button className='back-btn' onClick={() => navigate(`/?${location.search}`)}>
-            ← Back
-          </button> 
-        <motion.p
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 2, opacity: 1 }}
-            transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}>
-            City not found 😕
-        </motion.p>
+        <BackButton />
+        <NotFoundMessage message='City not found' />
     </div>
     );
   }
   
-
   if (!weatherData?.list) {
       return (
       <div className='centered-content'>
@@ -111,11 +75,9 @@ const CityDetailsPage = () => {
         >
           <CircularProgress size={80} />
         </motion.div>
-
       </div>
       );
   }
-
 
   return (
     <div className='city-details-wrapper'>
@@ -127,9 +89,7 @@ const CityDetailsPage = () => {
         style={{  backgroundImage: `url(${city.image})` }}
       >
         <div className='city-details-content'>
-          <button className='back-btn' onClick={() => navigate(`/?${location.search}`)}>
-            ← Back
-          </button>
+          <BackButton />
 
           <h1>{city.name}</h1>
           <h2>{city.country}</h2>
@@ -139,14 +99,13 @@ const CityDetailsPage = () => {
           <div className='units-wrapper'>
             <Units
               units={units}
-              handleChange={(key, value) => handleUnitsChange(key, value)}
+              handleChange={handleUnitsChange}
               isHeader={false}
             />
           </div>
           <DailyForecasts
             weatherData={weatherData}
             units={units}
-            dailyForecasts={dailyForecasts}
           />
         </div>
       </motion.div>
