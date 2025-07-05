@@ -1,11 +1,16 @@
 import type { HeaderProps } from "../../types/Header";
+import { useMemo } from "react";
 import Search from "../Search";
 import Select from "../Select";
 import Sort from "../Sort";
 import Units from "../Units";
 import './Header.css';
 
-const Header = ({ search, continent, sortBy, units, allContinents, handleChange }: HeaderProps) => {
+const Header = ({ search, continent, sortBy, units, cities, handleChange }: HeaderProps) => {
+  const allContinents = useMemo(() => {
+    const continents = cities.map((c) => c.continent);
+    return Array.from(new Set(continents));
+  }, [cities]);
   return (
     <div className="header">
       <div className="search-continent">

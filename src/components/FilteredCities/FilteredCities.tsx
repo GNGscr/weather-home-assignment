@@ -1,15 +1,23 @@
 import { Link } from 'react-router-dom';
 import type { City } from '../../types/City';
+import { useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import './FilteredCities.css';
 import NotFoundMessage from '../NotFound';
+import './FilteredCities.css';
+import type { SortOption } from '../../types/SortOption';
+import { getDistanceFromLatLonInKm } from '../../utils/distance';
 
 type CitiesProps = {
-    filteredCities: City[];
     searchParams: URLSearchParams;
+    cities: City[];
+    search: string;
+    continent: string;
+    sortBy: SortOption;
 };
 
-const FilteredCities = ({ filteredCities, searchParams }: CitiesProps) => {
+const TEL_AVIV_COORDS = { lat: 32.0853, lng: 34.7818 };
+
+const FilteredCities = ({ searchParams, cities, search, continent, sortBy }: CitiesProps) => {
     
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -31,6 +39,38 @@ const FilteredCities = ({ filteredCities, searchParams }: CitiesProps) => {
     scale: 0.7,
     transition: { duration: 0.3 },
   };
+
+  const filteredCities = useMemo(() => {
+    let result = [...cities];
+
+    if (search) {
+      result = result.filter((c) =>
+          c.name.toLowerCase().includes(search.toLowerCase()) ||
+          c.country.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (continent) {
+      result = result.filter((c) => c.continent === continent);
+    }
+
+    switch (sortBy) {
+      case 'name':
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'distance':
+        result.sort((a, b) =>
+          getDistanceFromLatLonInKm(a.coords.lat, a.coords.lng, TEL_AVIV_COORDS.lat, TEL_AVIV_COORDS.lng) -
+          getDistanceFromLatLonInKm(b.coords.lat, b.coords.lng, TEL_AVIV_COORDS.lat, TEL_AVIV_COORDS.lng)
+        );
+        break;
+
+      default:
+        break;
+    }
+
+    return result;
+  }, [cities, search, continent, sortBy]);
 
   if (filteredCities.length === 0) {
     return (

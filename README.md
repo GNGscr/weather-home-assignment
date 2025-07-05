@@ -1,6 +1,6 @@
-# 🌍 Weather Home Assignment
+# 🌍 Weather App
 
-Weather Home Assignment is a React + TypeScript app that displays a grid of active cities with weather and filtering features.
+Weather App is a React + TypeScript app that displays a grid of active cities with weather and filtering features.
 
 ---
 
@@ -34,8 +34,8 @@ Weather Home Assignment is a React + TypeScript app that displays a grid of acti
 
 1. **Clone the repo**  
    ```bash
-   git clone https://github.com/GNGscr/weather-home-assignment.git
-   cd weather-home-assignment
+   git clone https://github.com/GNGscr/weather-app.git
+   cd weather-app
 
 2. **Install dependencies**  
 
@@ -58,16 +58,7 @@ Weather Home Assignment is a React + TypeScript app that displays a grid of acti
 
   No tests were implemented due to time constraints. The code is modular and ready for testing.
 
-## ⚠️🚨 Post-deadline Fix Notice
-
-> **⚠️ Important:** This repository includes a bug fix that was committed after the official assignment deadline.
->
-> The originally submitted version is available at commit `Initial commit`.  
-> The post-deadline fix addresses an edge case that was discovered during further testing.  
-> It is included here solely to demonstrate understanding of the issue, and is **not** part of the evaluated submission.
-
-
 
 ## 👨‍💻 Author
 
-  Built by Danie Ehrlich as part of a take-home assignment.# weather-home-assignment
+  Built by Danie Ehrlich as side project.# weather-app
