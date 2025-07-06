@@ -4,6 +4,12 @@ Weather App is a React + TypeScript app that displays a grid of active cities wi
 
 ---
 
+## 📸 Preview
+
+![Weather App Preview](./public/images/screenshot.png)
+
+---
+
 ## ✨ Features
 
 - Grid view of active cities
