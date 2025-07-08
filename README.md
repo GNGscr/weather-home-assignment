@@ -67,4 +67,4 @@ Weather App is a React + TypeScript app that displays a grid of active cities wi
 
 ## 👨‍💻 Author
 
-  Built by Danie Ehrlich as side project.# weather-app
+  Built by Daniel Ehrlich as side project.# weather-app
