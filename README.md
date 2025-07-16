@@ -36,6 +36,37 @@ Weather App is a React + TypeScript app that displays a grid of active cities wi
 
 ---
 
+## 🧠 State & Logic
+
+- **URL-based filter**:
+  - Filtering is handled via URL params
+  - URL is persistent when user toggle pages
+
+---
+
+## ✨ UX/UI
+
+- Loading cards animation
+- Micro interaction - card scale on hover
+- UI display results error on no data
+- On filtering, cards use exit animation
+- Error message is delayed until exit animation finish
+
+---
+
+# 🧭 UX Interaction Flow
+
+1. User clicks on a card
+2. User is moved to city details page with current props
+3. User can either:
+   - Filter
+   - Select via continent
+   - Sort via distance
+   - Toggle units (will be displayed on city details page)
+4. On City Details Page user can see relevant data or click back
+
+---
+
 ## 🚀 Getting Started
 
 1. **Clone the repo**  
