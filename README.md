@@ -19,7 +19,7 @@ Weather App is a React + TypeScript app that displays a grid of active cities wi
 - Temperature unit toggle: °C / °F
 - City details page with current weather & forecast
 - Responsive layout (desktop/mobile)
-- State persisted in URL (search, filters, etc.)
+- Data persistence using URL (search, filters, etc.)
 
 ---
 
