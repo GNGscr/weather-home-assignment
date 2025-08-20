@@ -20,7 +20,6 @@ const MainPage = () => {
 
   useEffect(() => {
     const rawCities = (citiesDataRaw as { cities: City[] }).cities;
-    console.log(rawCities);
     
     setUniqueCities(rawCities);
   
